@@ -3,9 +3,10 @@ import SignInForm from './_auth/forms/SignInForm';
 import { Home } from './_root/pages';
 import SignUpForm from './_auth/forms/SignUpForm';
 import AuthLayout from './_auth/AuthLayout';
-
-import './globals.css'
 import RootLayout from './_root/RootLayout';
+
+
+import "./globals.css"
 
 const App = () => {
   return (
