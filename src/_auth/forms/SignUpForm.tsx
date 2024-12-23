@@ -2,6 +2,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form"
@@ -12,7 +13,7 @@ import { createUserAccount } from "@/lib/appwrite/api"
  
 
 const SignUpForm = () => {
-
+  const { toast } = useToast()
   const isLoading = false;
 
   const form = useForm<z.infer<typeof SignUpFormValidation>>({
@@ -28,7 +29,14 @@ const SignUpForm = () => {
   async function onSubmit(values: z.infer<typeof SignUpFormValidation>) {
     console.log(values)
     const newUser = await createUserAccount(values);
-    console.log(newUser)
+    
+    if (!newUser) {
+      return toast({
+        title: "Sign up failed. Please try again!",
+      });
+    }
+
+    // const session = await signInAccount();
   }
 
   return (
